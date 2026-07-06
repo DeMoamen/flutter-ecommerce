@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "119599672364",
+    "project_id": "e-commerc-3135b",
+    "storage_bucket": "e-commerc-3135b.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:119599672364:android:b0c6cd4f079b3fb88eb589",
+        "android_client_info": {
+          "package_name": "com.starshop.ecommerce"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA7WvDlnZT7_IaRag1xSU8ZyjPPOsdzkd0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
