@@ -55,9 +55,12 @@ class HeaderSection extends StatelessWidget {
     final loc = AppLocalizations.of(context);
     final theme = Theme.of(context);
     final authProvider = context.watch<AuthProvider>();
-    final userName = authProvider.userData?['name'] ?? 
-                    (authProvider.isAuthenticated ? (authProvider.user?.email?.split('@')[0] ?? 'User') : 'Guest');
-    
+    final userName =
+        authProvider.userData?['name'] ??
+        (authProvider.isAuthenticated
+            ? (authProvider.user?.email?.split('@')[0] ?? 'User')
+            : 'Guest');
+
     return Padding(
       padding: const EdgeInsets.fromLTRB(24, 20, 24, 0),
       child: Column(
@@ -88,7 +91,7 @@ class SearchBarSection extends StatelessWidget {
   Widget build(BuildContext context) {
     final loc = AppLocalizations.of(context);
     final theme = Theme.of(context);
-    
+
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 24),
       child: Container(
@@ -120,7 +123,11 @@ class SearchBarSection extends StatelessWidget {
                 color: theme.colorScheme.primary,
                 borderRadius: BorderRadius.circular(12),
               ),
-              child: const Icon(Icons.tune_rounded, color: Colors.white, size: 20),
+              child: const Icon(
+                Icons.tune_rounded,
+                color: Colors.white,
+                size: 20,
+              ),
             ),
             border: InputBorder.none,
             enabledBorder: InputBorder.none,
@@ -156,7 +163,10 @@ class _PromoBannerSectionState extends State<PromoBannerSection> {
     final banners = bannerProvider.banners;
 
     if (bannerProvider.isLoading && banners.isEmpty) {
-      return const SizedBox(height: 160, child: Center(child: CircularProgressIndicator()));
+      return const SizedBox(
+        height: 160,
+        child: Center(child: CircularProgressIndicator()),
+      );
     }
 
     if (banners.isEmpty) {
@@ -187,7 +197,9 @@ class _PromoBannerSectionState extends State<PromoBannerSection> {
                           image: NetworkImage(banner.imageUrl),
                           fit: BoxFit.cover,
                           colorFilter: ColorFilter.mode(
-                              Colors.black.withOpacity(0.4), BlendMode.darken),
+                            Colors.black.withOpacity(0.4),
+                            BlendMode.darken,
+                          ),
                         )
                       : null,
                   gradient: banner.imageUrl.isEmpty
@@ -214,33 +226,44 @@ class _PromoBannerSectionState extends State<PromoBannerSection> {
                         children: [
                           if (banner.label.isNotEmpty)
                             Container(
-                              padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
+                              padding: const EdgeInsets.symmetric(
+                                horizontal: 10,
+                                vertical: 6,
+                              ),
                               decoration: BoxDecoration(
                                 color: Colors.black.withOpacity(0.3),
                                 borderRadius: BorderRadius.circular(12),
                               ),
-                              child: Text(banner.label,
-                                  style: const TextStyle(
-                                      color: Colors.white,
-                                      fontSize: 10,
-                                      fontWeight: FontWeight.bold,
-                                      letterSpacing: 1.5)),
+                              child: Text(
+                                banner.label,
+                                style: const TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 10,
+                                  fontWeight: FontWeight.bold,
+                                  letterSpacing: 1.5,
+                                ),
+                              ),
                             ),
-                          if (banner.label.isNotEmpty) const SizedBox(height: 12),
+                          if (banner.label.isNotEmpty)
+                            const SizedBox(height: 12),
                           Text(
                             banner.title,
                             style: const TextStyle(
-                                color: Colors.white,
-                                fontSize: 24,
-                                height: 1.2,
-                                fontWeight: FontWeight.w900),
+                              color: Colors.white,
+                              fontSize: 24,
+                              height: 1.2,
+                              fontWeight: FontWeight.w900,
+                            ),
                             maxLines: 2,
                             overflow: TextOverflow.ellipsis,
                           ),
                           const SizedBox(height: 6),
                           Text(
                             banner.subtitle,
-                            style: const TextStyle(color: Colors.white70, fontSize: 13),
+                            style: const TextStyle(
+                              color: Colors.white70,
+                              fontSize: 13,
+                            ),
                             maxLines: 1,
                             overflow: TextOverflow.ellipsis,
                           ),
@@ -330,10 +353,10 @@ class CategoriesSection extends StatelessWidget {
     final theme = Theme.of(context);
     final categoryProvider = context.watch<CategoryProvider>();
     final categories = categoryProvider.categories;
-    
+
     // If we have dynamic categories from database, we use them.
     // If empty (e.g. not added yet), we could show a fallback or just empty.
-    
+
     if (categoryProvider.isLoading && categories.isEmpty) {
       return const SizedBox(
         height: 100,
@@ -355,15 +378,15 @@ class CategoriesSection extends StatelessWidget {
             children: [
               Text(
                 loc.get('categories'),
-                style: theme.textTheme.titleLarge?.copyWith(fontWeight: FontWeight.bold),
+                style: theme.textTheme.titleLarge?.copyWith(
+                  fontWeight: FontWeight.bold,
+                ),
               ),
-              TextButton(
-                onPressed: () {},
-                child: Text(loc.get('view_all')),
-              ),
+              TextButton(onPressed: () {}, child: Text(loc.get('view_all'))),
             ],
           ),
         ),
+        //// ///////////////////////////تعديل اول
         const SizedBox(height: 12),
         SizedBox(
           height: 100,
@@ -381,30 +404,33 @@ class CategoriesSection extends StatelessWidget {
                 padding: const EdgeInsets.symmetric(horizontal: 8),
                 child: Column(
                   children: [
-                     InkWell(
-                        onTap: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (_) => CategoryProductsScreen(categoryName: cat.name),
-                            ),
-                          );
-                        },
-                        borderRadius: BorderRadius.circular(18),
-                        child: Container(
-                          width: 64,
-                          height: 64,
-                          decoration: BoxDecoration(
-                            color: catColor.withOpacity(0.1),
-                            borderRadius: BorderRadius.circular(18),
+                    InkWell(
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (_) =>
+                                CategoryProductsScreen(categoryName: cat.name),
                           ),
-                          child: Icon(iconData, color: catColor),
+                        );
+                      },
+                      borderRadius: BorderRadius.circular(18),
+                      child: Container(
+                        width: 64,
+                        height: 64,
+                        decoration: BoxDecoration(
+                          color: catColor.withOpacity(0.1),
+                          borderRadius: BorderRadius.circular(18),
                         ),
+                        child: Icon(iconData, color: catColor),
                       ),
+                    ),
                     const SizedBox(height: 8),
                     Text(
                       cat.name,
-                      style: theme.textTheme.labelMedium?.copyWith(fontWeight: FontWeight.w600),
+                      style: theme.textTheme.labelMedium?.copyWith(
+                        fontWeight: FontWeight.w600,
+                      ),
                     ),
                   ],
                 ),
@@ -425,7 +451,8 @@ class FeaturedSection extends StatelessWidget {
     final loc = AppLocalizations.of(context);
     final theme = Theme.of(context);
     final productProvider = Provider.of<ProductProvider>(context);
-    final products = productProvider.featuredProducts; // تم التعديل لعرض المنتجات المميزة فقط
+    final products = productProvider
+        .featuredProducts; // تم التعديل لعرض المنتجات المميزة فقط
 
     if (productProvider.isLoading) {
       return const Center(
@@ -452,7 +479,9 @@ class FeaturedSection extends StatelessWidget {
           padding: const EdgeInsets.fromLTRB(24, 24, 24, 16),
           child: Text(
             loc.get('featured'),
-            style: theme.textTheme.titleLarge?.copyWith(fontWeight: FontWeight.bold),
+            style: theme.textTheme.titleLarge?.copyWith(
+              fontWeight: FontWeight.bold,
+            ),
           ),
         ),
         GridView.builder(
@@ -486,7 +515,7 @@ class ProductCard extends StatelessWidget {
     final theme = Theme.of(context);
     final wishlistProvider = Provider.of<WishlistProvider>(context);
     final isFavorite = wishlistProvider.isFavorite(product.id);
-    
+
     return InkWell(
       onTap: () {
         Navigator.push(
@@ -499,94 +528,106 @@ class ProductCard extends StatelessWidget {
       borderRadius: BorderRadius.circular(20),
       child: Container(
         decoration: BoxDecoration(
-        color: theme.cardColor,
-        borderRadius: BorderRadius.circular(20),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black.withOpacity(0.02),
-            blurRadius: 10,
-            offset: const Offset(0, 5),
-          ),
-        ],
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Expanded(
-            child: Stack(
-              children: [
-                Container(
-                  decoration: BoxDecoration(
-                    borderRadius: const BorderRadius.vertical(top: Radius.circular(20)),
-                    image: DecorationImage(
-                      image: NetworkImage(product.image),
-                      fit: BoxFit.cover,
-                    ),
-                  ),
-                ),
-                Positioned(
-                  top: 12,
-                  right: 12,
-                  child: InkWell(
-                    onTap: () {
-                      wishlistProvider.toggleFavorite(product);
-                    },
-                    child: Container(
-                      padding: const EdgeInsets.all(8),
-                      decoration: const BoxDecoration(
-                        color: Colors.white,
-                        shape: BoxShape.circle,
-                      ),
-                      child: Icon(
-                        isFavorite ? Icons.favorite_rounded : Icons.favorite_border_rounded,
-                        size: 18,
-                        color: isFavorite ? Colors.red : Colors.grey,
-                      ),
-                    ),
-                  ),
-                ),
-              ],
+          color: theme.cardColor,
+          borderRadius: BorderRadius.circular(20),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black.withOpacity(0.02),
+              blurRadius: 10,
+              offset: const Offset(0, 5),
             ),
-          ),
-          Padding(
-            padding: const EdgeInsets.all(12),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  product.name,
-                  maxLines: 1,
-                  overflow: TextOverflow.ellipsis,
-                  style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 14),
-                ),
-                const SizedBox(height: 4),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(
-                      '\$${product.price.toStringAsFixed(2)}',
-                      style: TextStyle(
-                        color: theme.colorScheme.primary,
-                        fontWeight: FontWeight.w800,
-                        fontSize: 16,
+          ],
+        ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Expanded(
+              child: Stack(
+                children: [
+                  Container(
+                    decoration: BoxDecoration(
+                      borderRadius: const BorderRadius.vertical(
+                        top: Radius.circular(20),
+                      ),
+                      image: DecorationImage(
+                        image: NetworkImage(product.image),
+                        fit: BoxFit.cover,
                       ),
                     ),
+                  ),
+                  Positioned(
+                    top: 12,
+                    right: 12,
+                    child: InkWell(
+                      onTap: () {
+                        wishlistProvider.toggleFavorite(product);
+                      },
+                      child: Container(
+                        padding: const EdgeInsets.all(8),
+                        decoration: const BoxDecoration(
+                          color: Colors.white,
+                          shape: BoxShape.circle,
+                        ),
+                        child: Icon(
+                          isFavorite
+                              ? Icons.favorite_rounded
+                              : Icons.favorite_border_rounded,
+                          size: 18,
+                          color: isFavorite ? Colors.red : Colors.grey,
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(12),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    product.name,
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                    style: const TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 14,
+                    ),
+                  ),
+                  const SizedBox(height: 4),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        '\$${product.price.toStringAsFixed(2)}',
+                        style: TextStyle(
+                          color: theme.colorScheme.primary,
+                          fontWeight: FontWeight.w800,
+                          fontSize: 16,
+                        ),
+                      ),
                       Row(
                         children: [
-                          const Icon(Icons.star_rounded, color: Colors.amber, size: 16),
+                          const Icon(
+                            Icons.star_rounded,
+                            color: Colors.amber,
+                            size: 16,
+                          ),
                           Text(
                             ' ${product.rating.toStringAsFixed(1)}',
                             style: theme.textTheme.labelSmall,
                           ),
                         ],
                       ),
-                  ],
-                ),
-              ],
+                    ],
+                  ),
+                ],
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
-    ));
+    );
   }
 }
